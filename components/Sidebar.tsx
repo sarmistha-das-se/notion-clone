@@ -56,7 +56,6 @@ const Sidebar = () => {
     }>(
       (acc, curr) => {
         const roomData = curr.data() as RoomDocument;
-        console.log(roomData);
         if (roomData.role === "owner") {
           acc.owner.push({
             id: curr.id,
@@ -99,10 +98,21 @@ const Sidebar = () => {
         )}
       </div>
 
-      {/* List ... */}
-
       {/* Shared with me */}
-      {/* List ... */}
+      {groupedData.editor.length === 0 ? (
+        <h2 className="text-gray-500 font-semibold text-sm">
+          No Documents Found
+        </h2>
+      ) : (
+        <>
+          <h2 className="text-gray-500 font-semibold text-sm">
+            Shared with me
+          </h2>
+          {groupedData.editor.map((doc) => (
+            <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
+          ))}
+        </>
+      )}
     </>
   );
   return (
